@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="BloodRelation:war exploded">
+    <output-path>F:/各种安装包/Tomcat/webapps/scripts</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="scripts/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="scripts" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
