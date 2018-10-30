@@ -31,7 +31,7 @@
         <div class="tab-pane fade in active" id="reportlets">
             <form class="form-inline" role="form" action="searchFile" method="post">
                 <input type="text" class="form-control" id="name" placeholder="请输入查找内容"  name="searchText">
-                <button type="submit" class="btn btn-primary">查找</button>
+                <button type="submit" class="btn btn-primary">查找</button><span class="text-danger">&nbsp;&nbsp;&nbsp;&nbsp;注:空为查找未挂出模板</span>
             </form>
             <span class="text-primary">当前查找内容为:${searchText}</span>
             <table  class="table table-striped table-bordered table-hover  table-condensed">
@@ -47,6 +47,7 @@
                 </c:forEach>
             </table>
         </div>
+
 
         <div class="tab-pane fade" id="hhdi">
             <p></p>

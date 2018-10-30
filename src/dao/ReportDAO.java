@@ -33,18 +33,63 @@ public class ReportDAO {
         return reports;
     }
 
-//    public static void main(String[] args) {
-//        ReportDAO r = new ReportDAO();
-//        File javaFile = new File("D:/LOLFolder/reportlets");
-//
-//        r.search(javaFile, "商场综合指标分析");
-//        List<Report> reports = r.listReport();
-//        for (Report report : reports) {
-//            System.out.println(report.getSystemPath());
-//        }
-//    }
-    public void listLostReport() {
+    public static void main(String[] args) {
+        ReportDAO r = new ReportDAO();
+        File javaFile = new File(PropertiesUtil.reportletPath);
 
+        r.search(javaFile, "");
+        List<Report> lostReports= r.listLostReport();
+        for (Report report : lostReports) {
+            System.out.println(report.getServerPath());
+        }
+
+    }
+    public List<Report> listLostReport() {
+        List<Report> reports=new ArrayList<>();
+        List<Report> lostReports = new ArrayList<>();
+        //查找所有已挂出的模板
+        try {
+            Class.forName("com.fr.third.org.hsqldb.jdbcDriver");
+            Connection c = DriverManager.getConnection("emb:jdbc:hsqldb:file:" + PropertiesUtil.finedbPath + "/db", "sa", "");
+
+            String sql = " SELECT id,parent,name,reportletpath FROM FR_REPORTLETENTRY";
+            PreparedStatement ps = c.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Report r = new Report();
+
+                r.setId(rs.getInt(1));
+                r.setParentid(rs.getInt(2));
+                r.setSystemPath(rs.getString(3) + "\\");
+                r.setServerPath(rs.getString(4));
+                reports.add(r);
+            }
+            rs.close();
+            c.close();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        for (String s : serverPaths) {
+
+            boolean isContains=false;//0不包含
+            for (Report r : reports) {
+                if (s.equals(r.getServerPath())) {
+                    isContains=true;
+                    break;
+                }
+            }
+            if (isContains == false) {
+                Report lostReport=new Report();
+                lostReport.setServerPath(s);
+                lostReports.add(lostReport);
+            }
+        }
+
+
+        return lostReports;
     }
 
     //根据模板路径查找在决策系统中的挂载目录

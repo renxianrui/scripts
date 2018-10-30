@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,14 +21,20 @@ import java.util.List;
 public class SearchFileServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ReportDAO r = new ReportDAO();
+        List<Report> reports = new ArrayList<>();
         request.setCharacterEncoding("UTF-8");
 
-        String searchText = request.getParameter("searchText");
+        String searchText = request.getParameter("searchText").trim();
         String reportletPath = PropertiesUtil.reportletPath;
 
         File javaFile = new File(reportletPath);
         r.search(javaFile, searchText);
-        List<Report> reports = r.listReport();
+        if (searchText.trim().length() == 0) {
+             reports = r.listLostReport();
+        } else {
+          reports = r.listReport();
+        }
+
         request.setAttribute("reports", reports);
 
         request.setAttribute("searchText", searchText);
