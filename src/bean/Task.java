@@ -6,15 +6,14 @@ import java.util.Date;
  * Created by Ren on 2018/10/29.
  */
 public class Task {
-    private String taskNO;//任务编号
-    private String taskName;//任务名称
-    private String sourceTables;//源表
-    private String transScript;//目标表
-    private Date createTime;//创建时间
-    private Date modifiedTime;//修改时间
-    private String modifier;//修改人
-    private String jobName;//作业名称
-    private String schedule;//调度名称
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
 
     public String getTaskNO() {
         return taskNO;
@@ -40,12 +39,12 @@ public class Task {
         this.sourceTables = sourceTables;
     }
 
-    public String getTransScript() {
-        return transScript;
+    public String getTargetTables() {
+        return targetTables;
     }
 
-    public void setTransScript(String transScript) {
-        this.transScript = transScript;
+    public void setTargetTables(String targetTables) {
+        this.targetTables = targetTables;
     }
 
     public Date getCreateTime() {
@@ -88,5 +87,42 @@ public class Task {
         this.schedule = schedule;
     }
 
+    public String getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(String taskType) {
+        this.taskType = taskType;
+    }
+
+    public String getSourceConnectionName() {
+        return sourceConnectionName;
+    }
+
+    public void setSourceConnectionName(String sourceConnectionName) {
+        this.sourceConnectionName = sourceConnectionName;
+    }
+
+    public String getTargetConnectionName() {
+        return targetConnectionName;
+    }
+
+    public void setTargetConnectionName(String targetConnectionName) {
+        this.targetConnectionName = targetConnectionName;
+    }
+
+    private String taskId;//任务ID
+    private String taskNO;//任务编号
+    private String taskName;//任务名称
+    private String sourceTables;//源表
+    private String targetTables;//目标表
+    private Date createTime;//创建时间
+    private Date modifiedTime;//修改时间
+    private String modifier;//修改人
+    private String jobName;//作业名称
+    private String schedule;//调度名称
+    private String taskType;//任务类型
+    private String  sourceConnectionName;//源连接
+    private String  targetConnectionName;//目标连接
 
 }
